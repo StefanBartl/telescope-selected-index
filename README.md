@@ -1,8 +1,8 @@
 ```sh
-         __  ___ _   ___ ________ ___ __         _ __  _ __  _____   __   //\ 
-       /' _/| __| | | __/ _/_   _| __| _\   __  | |  \| | _\| __\ \_/ /   \//' 
- //\   `._`.| _|| |_| _| \__ | | | _|| v | |__| | | | ' | v | _| > , <   
-`\//'  |___/|___|___|___\__/ |_| |___|__/       |_|_|\__|__/|___/_/ \_\ 
+         __  ___ _   ___ ________ ___ __         _ __  _ __  _____   __   //\
+       /' _/| __| | | __/ _/_   _| __| _\   __  | |  \| | _\| __\ \_/ /   \//'
+ //\   `._`.| _|| |_| _| \__ | | | _|| v | |__| | | | ' | v | _| > , <
+`\//'  |___/|___|___|___\__/ |_| |___|__/       |_|_|\__|__/|___/_/ \_\
 ```
 ![version](https://img.shields.io/badge/version-0.1-blue.svg)
 ![status](https://img.shields.io/badge/status-beta-orange.svg)
@@ -10,7 +10,8 @@
 ![Lazy.nvim](https://img.shields.io/badge/lazy.nvim-supported-success.svg)
 ![Lua](https://img.shields.io/badge/language-Lua-yellow.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg)
+
+> This project is highly experimental and currently in alpha phase. The main functionalities are not working yet. Expect errors and changes. <
 
 A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) plugin to show the index of the currently selected entry in the results window. Designed for easy integration.
 
@@ -24,21 +25,18 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 * Lightweight and easy to add to any Neovim setup.
 * No extra Telescope extensions required.
 
-This plugin is currently in beta version - youre feedback is welcome, see [feedback](#feedback) or [contributing](#contributing). 
+This plugin is currently in beta version - youre feedback is welcome, see [feedback](#feedback) or [contributing](#contributing).
 
 ---
 
 ## Installation
 
-### Minimal configúration:
+### Minimal configuration:
 
 ```lua
 {
     "StefanBartl/telescope-selected-index",
     event = "VeryLazy",
-    config = function(_, opts)
-        require("telescope-selected-index").setup(opts)
-    end,
 }
 ```
 
@@ -173,5 +171,3 @@ If you find this plugin useful, please give it a ⭐ on GitHub to support its de
 MIT License
 
 ---
-
-If desired, I can also create an **ASCII diagram illustrating the exact extmark overlay positions** for all options to make it even clearer in the README. Do you want me to add that?
