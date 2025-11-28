@@ -4,7 +4,7 @@
 
 local M = {}
 
--- store cache by results table identity (tostring(tbl) used as key)
+-- store cache by results table identity
 M._cache = {}  -- { [key] = { results_ref = tbl, cached_upto = number, cached_count = number, len_snapshot = number } }
 
 local function key_for(tbl)

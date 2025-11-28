@@ -1,14 +1,15 @@
 ---@module 'telescope_selected_index.compute'
 --- Compute helper for selected index
+--- Fallback: Only called if `action_state.get_selected_entry()` has no `entry.index` (update.lua())
 
 local M = {}
 
 local cache = require("telescope_selected_index.cache")
 
---- compute index for selected entry from picker
+--- Compute index for selected entry from picker
 --- @param picker table|nil # telescope picker instance (may be nil during early picker lifecycle)
---- @param row number # zero-based row in the results buffer
---- @return number # index 1-based index (best-effort)
+--- @param row number       # zero-based row in the results buffer
+--- @return number          # index 1-based index (best-effort)
 function M.compute_index_from_picker(picker, row)
   -- Defensive checks: prefer picker.results, then manager.results, then fallback.
   local results = nil

@@ -3,12 +3,13 @@
 
 local M = {}
 
---- wrap_move
---- @param map function
---- @param key string
---- @param mode string
---- @param action_fn function
---- @param update_fn function
+--- Movement helper for attaching update functions to keys
+---@param map function
+---@param key string
+---@param mode string
+---@param action_fn function
+---@param update_fn function
+---@return boolean|nil
 function M.wrap_move(map, key, mode, action_fn, update_fn)
     map(mode, key, function(prompt_bufnr_)
         pcall(action_fn, prompt_bufnr_)
