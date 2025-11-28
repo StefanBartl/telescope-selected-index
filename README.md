@@ -21,6 +21,7 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 ```lua
 {
     "StefanBartl/telescope-selected-index",
+    event = "VeryLazy",
     config = function(_, opts)
         require("telescope-selected-index").setup(opts)
     end,
@@ -35,6 +36,7 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 ```lua
 use {
     "StefanBartl/telescope-selected-index",
+    event = "VeryLazy",
     config = function()
         require("telescope-selected-index").setup({
             position = "right_align"
