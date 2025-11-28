@@ -1,15 +1,15 @@
 ---@module 'telescope_selected_index.selected_index'
 --- Lightweight helper to display the index of the currently selected Telescope entry
---- as an inline virtual text overlay in the results window.
+--- as an inline virtual text/line overlay in the results window.
 
 local M = {}
 
---- attach_mappings_with_selected_index
---- Returns a function suitable for passing to Telescope's `attach_mappings`.
+--- Lightweight helper to display the index of the currently selected Telescope entry
+--- as an inline virtual text/line overlay in the results window.
+---@return function # Returns a function suitable for passing to Telescope's `attach_mappings`.
 function M.attach_mappings_with_selected_index()
     return function(prompt_bufnr, map)
         local action_state = require("telescope.actions.state")
-        local actions = require("telescope.actions")
 
         local ns = vim.api.nvim_create_namespace("telescope_selected_index_ns")
 
@@ -22,7 +22,7 @@ function M.attach_mappings_with_selected_index()
         end
 
         local compute_mod = require("telescope_selected_index.compute")
-        local move_mod = require("telescope_selected_index.move")
+        local attach_actions = require("telescope_selected_index.actions")
         local update_mod = require("telescope_selected_index.update")
 
         local update_selected_index = update_mod.make_update_selected_index({
@@ -36,14 +36,7 @@ function M.attach_mappings_with_selected_index()
         vim.defer_fn(update_selected_index, 40)
         vim.defer_fn(update_selected_index, 500)
 
-        move_mod.wrap_move(map, "<Down>", "i", actions.move_selection_next, update_selected_index)
-        move_mod.wrap_move(map, "<Up>", "i", actions.move_selection_previous, update_selected_index)
-        move_mod.wrap_move(map, "<C-n>", "i", actions.move_selection_next, update_selected_index)
-        move_mod.wrap_move(map, "<C-p>", "i", actions.move_selection_previous, update_selected_index)
-        move_mod.wrap_move(map, "j", "n", actions.move_selection_next, update_selected_index)
-        move_mod.wrap_move(map, "k", "n", actions.move_selection_previous, update_selected_index)
-        move_mod.wrap_move(map, "<Down>", "n", actions.move_selection_next, update_selected_index)
-        move_mod.wrap_move(map, "<Up>", "n", actions.move_selection_previous, update_selected_index)
+        attach_actions(map, update_selected_index)
 
         local ok, p = pcall(get_picker)
         if ok and p and p.results_bufnr and p.results_bufnr ~= 0 then
