@@ -20,14 +20,20 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
 ```lua
 {
-    "StefanBartl/telescope-selected-index",
-    event = "VeryLazy",
-    config = function(_, opts)
-        require("telescope-selected-index").setup(opts)
-    end,
-    opts = {
-        position = "right_align",  -- optional, default is "right_align"
-    }
+  "StefanBartl/telescope-selected-index",
+  dependencies = { "nvim-telescope/telescope.nvim" },
+  config = function(_, opts)
+    local telescope = require("telescope")
+    telescope.setup({
+      extensions = {
+        selected_index = opts,
+      },
+    })
+    telescope.load_extension("selected_index")
+  end,
+  opts = {
+    position = "right",
+  },
 }
 ```
 
@@ -36,10 +42,10 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 ```lua
 use {
     "StefanBartl/telescope-selected-index",
-    event = "VeryLazy",
+    after = "telescope.nvim",  -- Load after telescope
     config = function()
-        require("telescope-selected-index").setup({
-            position = "right_align"
+        require("telescope_selected_index").setup({
+            position = "right_align",  -- optional, default is "right_align"
         })
     end
 }
