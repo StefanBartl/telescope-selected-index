@@ -1,6 +1,11 @@
-# telescope-selected-index
+```sh
+         __  ___ _   ___ ________ ___ __         _ __  _ __  _____   __   //\ 
+       /' _/| __| | | __/ _/_   _| __| _\   __  | |  \| | _\| __\ \_/ /   \//' 
+ //\   `._`.| _|| |_| _| \__ | | | _|| v | |__| | | | ' | v | _| > , <   
+`\//'  |___/|___|___|___\__/ |_| |___|__/       |_|_|\__|__/|___/_/ \_\ 
+```
 
-A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) plugin to show the index of the currently selected entry in the results window. Designed for easy integration via `lazy.nvim` or `require`.
+A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) plugin to show the index of the currently selected entry in the results window. Designed for easy integration.
 
 ---
 
@@ -8,7 +13,7 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
 * Displays the current selection index as **virtual text** or **virt_lines**.
 * Updates automatically when moving through Telescope results.
-* Configurable position: `overlay`, `right_align`, `eol`, `top`, `down`.
+* Configurable position: `overlay`, `right_align`, `eol`, `top`, `down` (recommended: `right_align`)
 * Lightweight and easy to add to any Neovim setup.
 * No extra Telescope extensions required.
 
@@ -16,7 +21,19 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 
 ## Installation
 
-### Using lazy.nvim
+### Minimal configúration:
+
+```lua
+{
+    "StefanBartl/telescope-selected-index",
+    event = "VeryLazy",
+    config = function(_, opts)
+        require("telescope-selected-index").setup(opts)
+    end,
+}
+```
+
+### Configure position using lazy.nvim
 
 ```lua
 {
@@ -31,7 +48,7 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 }
 ```
 
-### Using packer.nvim
+### Configure position using packer.nvim
 
 ```lua
 use {
