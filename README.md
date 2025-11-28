@@ -4,6 +4,13 @@
  //\   `._`.| _|| |_| _| \__ | | | _|| v | |__| | | | ' | v | _| > , <   
 `\//'  |___/|___|___|___\__/ |_| |___|__/       |_|_|\__|__/|___/_/ \_\ 
 ```
+![version](https://img.shields.io/badge/version-0.1-blue.svg)
+![status](https://img.shields.io/badge/status-beta-orange.svg)
+![Neovim](https://img.shields.io/badge/Neovim-0.9%2B-success.svg)
+![Lazy.nvim](https://img.shields.io/badge/lazy.nvim-supported-success.svg)
+![Lua](https://img.shields.io/badge/language-Lua-yellow.svg)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg)
 
 A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) plugin to show the index of the currently selected entry in the results window. Designed for easy integration.
 
@@ -16,6 +23,8 @@ A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
 * Configurable position: `overlay`, `right_align`, `eol`, `top`, `down` (recommended: `right_align`)
 * Lightweight and easy to add to any Neovim setup.
 * No extra Telescope extensions required.
+
+This plugin is currently in beta version - youre feedback is welcome, see [feedback](#feedback) or [contributing](#contributing). 
 
 ---
 
@@ -125,12 +134,37 @@ For these reasons, `right_align` is recommended as the default and most reliable
 
 ---
 
+## Disclaimer
+
+ℹ️ mdview.nvim is under active development.
+
+---
+
 ## Contributing
 
 1. Fork the repository.
 2. Make your changes inside the `lua/telescope_selected_index/` folder.
 3. Test locally with `lazy.nvim` or manually requiring the plugin.
 4. Submit a pull request.
+
+---
+
+
+## Feedback
+
+Your feedback is very welcome!
+
+Use the [GitHub Issue Tracker](https://github.com/StefanBartl/telescope-selected-index/issues) to:
+
+* Report bugs
+* Suggest new features
+* Ask usage questions
+* Share thoughts on UI or workflow
+
+For open discussion, visit the
+[GitHub Discussions](https://github.com/StefanBartl/telescope-selected-index/discussions).
+
+If you find this plugin useful, please give it a ⭐ on GitHub to support its development.
 
 ---
 
