@@ -3,10 +3,12 @@
 
 local M = {}
 
---- compute_index_from_picker
---- @param picker table|nil telescope picker instance (may be nil during early picker lifecycle)
---- @param row number zero-based row in the results buffer
---- @return number index 1-based index (best-effort)
+local cache = require("telescope_selected_index.cache")
+
+--- compute index for selected entry from picker
+--- @param picker table|nil # telescope picker instance (may be nil during early picker lifecycle)
+--- @param row number # zero-based row in the results buffer
+--- @return number # index 1-based index (best-effort)
 function M.compute_index_from_picker(picker, row)
   -- Defensive checks: prefer picker.results, then manager.results, then fallback.
   local results = nil
@@ -28,18 +30,28 @@ function M.compute_index_from_picker(picker, row)
   end
 
   -- Count non-nil entries up to the given row (pragmatic heuristic).
-  local count = 0
   local upto = math.min(row + 1, #results)
-  for i = 1, upto do
-    if results[i] ~= nil then
-      count = count + 1
+
+  -- Use incremental cache to count non-nil entries up to `upto`.
+  local ok, count = pcall(function()
+    return cache.count_upto(results, upto)
+  end)
+  if not ok or type(count) ~= "number" then
+    -- fallback to full scan
+    local c = 0
+    for i = 1, upto do
+      if results[i] ~= nil then c = c + 1 end
     end
+    if c == 0 then
+      return row + 1
+    end
+    return c
   end
+
   if count == 0 then
     return row + 1
   end
   return count
 end
-
 
 return M
