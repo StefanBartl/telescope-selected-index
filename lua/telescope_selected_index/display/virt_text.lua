@@ -1,22 +1,32 @@
 ---@module 'telescope_selected_index.display.virt_text'
---- Render the current index using extmarks with `virt_text`.
----
---- The function accepts a canonical `virt_text_pos` value and applies it
---- to `virt_text_pos` option when setting an extmark. This file uses
+--- Render index using extmarks with virt_text
 
----@param results_bufnr number     # Buffer number of the telescope results buffer.
----@param ns number                # Extmark namespace id previously created by the caller.
----@param row number               # Zero-based row in the results buffer where the index should be displayed.
----@param index number             # 1-based numeric index to render.
----@param text_align virt_text_pos # One of "overlay"|"right_align"|"eol".
+---@param results_bufnr number
+---@param ns number
+---@param row number
+---@param index number
+---@param text_align virt_text_pos
 ---@return nil
 return function(results_bufnr, ns, row, index, text_align)
-  local virt_text = { { tostring(index) .. ". ", "TelescopeResultsFunction" } }
-  local opts = {
-    virt_text = virt_text,
-    hl_mode = "combine",
-    virt_text_pos = text_align,
-  }
+	if not vim.api.nvim_buf_is_valid(results_bufnr) then
+		return false
+	end
 
-  pcall(vim.api.nvim_buf_set_extmark, results_bufnr, ns, row, 0, opts)
+	local line_count = vim.api.nvim_buf_line_count(results_bufnr)
+	if row < 0 or row >= line_count then
+		return false
+	end
+
+	if type(index) ~= "number" or index < 1 then
+		return false
+	end
+
+	local virt_text = { { tostring(index) .. ". ", "TelescopeResultsFunction" } }
+	local opts = {
+		virt_text = virt_text,
+		hl_mode = "combine",
+		virt_text_pos = text_align,
+	}
+
+	vim.api.nvim_buf_set_extmark(results_bufnr, ns, row, 0, opts)
 end

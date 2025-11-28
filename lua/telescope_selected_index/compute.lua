@@ -34,10 +34,8 @@ function M.compute_index_from_picker(picker, row)
   local upto = math.min(row + 1, #results)
 
   -- Use incremental cache to count non-nil entries up to `upto`.
-  local ok, count = pcall(function()
-    return cache.count_upto(results, upto)
-  end)
-  if not ok or type(count) ~= "number" then
+  local count = cache.count_upto(results, upto)
+  if not count or type(count) ~= "number" then
     -- fallback to full scan
     local c = 0
     for i = 1, upto do

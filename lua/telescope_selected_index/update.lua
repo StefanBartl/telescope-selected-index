@@ -13,30 +13,28 @@ function M.make_update_selected_index(deps)
   local compute_index = deps.compute_index
 
   return function()
-    -- Try to get the selected entry (preferred, authoritative source).
+    -- Try to get the selected entry; make first call to picker safe via pcall
     local ok_ent, entry = pcall(function() return action_state.get_selected_entry() end)
 
-    -- Get picker instance robustly.
-    local p = nil
-    local ok_p, ptemp = pcall(get_picker)
-    if ok_p and ptemp then p = ptemp end
-    if not p then return end
+    -- Get picker instance
+    local picker = get_picker()
+    if not picker then return end
 
-    local results_bufnr = p.results_bufnr or (p.manager and p.manager.results_bufnr) or p._results_bufnr
+    local results_bufnr = picker.results_bufnr or (picker.manager and picker.manager.results_bufnr) or picker._results_bufnr
     if not results_bufnr or results_bufnr == 0 then return end
 
-    -- clear previous extmarks in our namespace
-    pcall(vim.api.nvim_buf_clear_namespace, results_bufnr, ns, 0, -1)
+    -- clear previous extmarks in namespace
+    vim.api.nvim_buf_clear_namespace(results_bufnr, ns, 0, -1)
 
     -- obtain selection row (0-based)
     local row = nil
-    if type(p.get_selection_row) == "function" then
-      local ok_row, r = pcall(p.get_selection_row, p)
-      if ok_row and type(r) == "number" then row = r end
+    if type(picker.get_selection_row) == "function" then
+      local r = picker.get_selection_row(picker)
+      if type(r) == "number" then row = r end
     end
     if not row then
-      local ok_win, win = pcall(function() return p.results_win end)
-      if ok_win and win and win ~= 0 then
+      local win = picker.results_win()
+      if win and win ~= 0 then
         local ok_cur, cur = pcall(vim.api.nvim_win_get_cursor, win)
         if ok_cur and type(cur) == "table" then row = cur[1] - 1 end
       end
@@ -48,7 +46,7 @@ function M.make_update_selected_index(deps)
     if ok_ent and type(entry) == "table" and type(entry.index) == "number" then
       index = entry.index
     else
-      index = compute_index and compute_index(p, row) or (row + 1)
+      index = compute_index and compute_index(picker, row) or (row + 1)
     end
 
     if not (index and index > 0) then

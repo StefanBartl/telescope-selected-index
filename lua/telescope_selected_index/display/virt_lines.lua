@@ -11,13 +11,17 @@
 ---@param above virt_line_pos # "top" to draw above the row, "down" to draw below.
 ---@return nil
 return function(bufnr, ns, row, index, above)
-  local virt_lines_above = (above == "top")
-  local virt_line = { { tostring(index) .. ". ", "TelescopeResultsFunction" } }
-  local opts = {
-    virt_lines = { virt_line },
-    virt_lines_above = virt_lines_above,
-    hl_mode = "combine",
-  }
+	if not vim.api.nvim_buf_is_valid(bufnr) then
+		return false
+	end
 
-  pcall(vim.api.nvim_buf_set_extmark, bufnr, ns, row, 0, opts)
+	local virt_lines_above = (above == "top")
+	local virt_line = { { tostring(index) .. ". ", "TelescopeResultsFunction" } }
+	local opts = {
+		virt_lines = { virt_line },
+		virt_lines_above = virt_lines_above,
+		hl_mode = "combine",
+	}
+
+	vim.api.nvim_buf_set_extmark(bufnr, ns, row, 0, opts)
 end

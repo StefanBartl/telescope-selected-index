@@ -12,7 +12,7 @@ local M = {}
 ---@return boolean|nil
 function M.wrap_move(map, key, mode, action_fn, update_fn)
     map(mode, key, function(prompt_bufnr_)
-        pcall(action_fn, prompt_bufnr_)
+        action_fn(prompt_bufnr_)
         if type(update_fn) == "function" then
             vim.schedule(update_fn)
         end
