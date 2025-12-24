@@ -10,7 +10,8 @@
 ![Lazy.nvim](https://img.shields.io/badge/lazy.nvim-supported-success.svg)
 ![Lua](https://img.shields.io/badge/language-Lua-yellow.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg)
+
+> This project is highly experimental and currently in alpha phase. The main functionalities are not working yet. Expect errors and changes. <
 
 A lightweight [Telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) plugin to show the index of the currently selected entry in the results window. Designed for easy integration.
 
